@@ -165,9 +165,11 @@ def main():
     if not HAS_BOTO:
       module.fail_json(msg='boto is required.')
 
+    security_token = module.params['security_token']
     ec2_url, access_key, secret_key, region = get_ec2_creds(module)
     aws_connect_params = dict(aws_access_key_id=access_key,
-                              aws_secret_access_key=secret_key)
+                              aws_secret_access_key=secret_key,
+                              security_token=security_token)
 
     if not region:
         module.fail_json(msg="Region must be specified as a parameter, in EC2_REGION or AWS_REGION environment variables or in boto configuration file")
